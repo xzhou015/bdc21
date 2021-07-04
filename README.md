@@ -6,3 +6,5 @@ This file corresponds with paper written in STEM Fellowship Big Data Challenge 2
 All data is open-access and collected from Google API.
 
 The "r_ml_stata" module is written by Cerulli, G.
+
+Video Presentation avaiable at https://youtu.be/k1UMQYZZVYI
