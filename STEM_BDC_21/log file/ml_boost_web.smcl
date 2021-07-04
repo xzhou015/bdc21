@@ -1,0 +1,210 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/zhou/Desktop/ml_boost_web.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}28 May 2021, 01:36:30
+
+{com}. global learner "boost"
+
+. global y daily_0
+
+. global x "negative-positive"
+
+. gen i=_n
+
+. preserve
+
+. keep if i<145
+{txt}(7 observations deleted)
+
+{com}. drop i
+
+. save data_train, replace
+{txt}(note: file data_train.dta not found)
+file data_train.dta saved
+
+{com}. restore
+
+. preserve
+
+. keep if i>144
+{txt}(144 observations deleted)
+
+{com}. drop $y
+
+. drop i
+
+. save data_test, replace
+{txt}(note: file data_test.dta not found)
+file data_test.dta saved
+
+{com}. restore
+
+. preserve
+
+. keep if i>144
+{txt}(144 observations deleted)
+
+{com}. keep $y
+
+. gen index=_n-1
+
+. save test_y, replace
+{txt}(note: file test_y.dta not found)
+file test_y.dta saved
+
+{com}. restore
+
+. use data_train, clear
+
+. r_ml_stata $y $x, mlmodel($learner) in_prediction("in_pred")  cross_validation("CV") out_sample("data_test") out_prediction("out_pred") seed(10) save_graph_cv("graph_cv")
+{txt}(note: file /var/folders/cg/c7mvpbk97nd5rh8rkw5zwn_w0000gn/T//S_17117.000019 not found)
+file /var/folders/cg/c7mvpbk97nd5rh8rkw5zwn_w0000gn/T//S_17117.000019 saved
+(0 observations deleted)
+(note: file /var/folders/cg/c7mvpbk97nd5rh8rkw5zwn_w0000gn/T//S_17117.00001b not found)
+file /var/folders/cg/c7mvpbk97nd5rh8rkw5zwn_w0000gn/T//S_17117.00001b saved
+{res}      daily_0  negative   neutral   positive
+0    0.111966  1.446809  3.921569  20.782504
+1    0.131907  1.254902  3.264151  19.506217
+2    0.167792  1.180000  3.428571  18.134104
+3    0.057064  0.916667  2.113208  17.492903
+4    0.003655  0.886792  1.559322  18.986158
+..        ...       ...       ...        ...
+139  0.115015  1.492537  1.833333  32.850000
+140  0.258763  1.634921  2.784314  35.883333
+141  0.342304  2.000000  3.594595  30.928529
+142  0.339723  2.549020  2.800000  30.006667
+143  0.468150  2.259259  4.552632  47.206140
+
+[144 rows x 4 columns]
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 144 entries, 0 to 143
+Data columns (total 4 columns):
+ #   Column    Non-Null Count  Dtype  
+---  ------    --------------  -----  
+ 0   daily_0   144 non-null    float64
+ 1   negative  144 non-null    float64
+ 2   neutral   144 non-null    float64
+ 3   positive  144 non-null    float64
+dtypes: float64(4)
+memory usage: 5.6 KB
+                                                      
+                                                      
+------------------------------------------------------
+CROSS-VALIDATION RESULTS TABLE
+------------------------------------------------------
+The best score is:
+0.5281271990589936
+------------------------------------------------------
+The best parameters are:
+{c -(}'learning_rate': 0.2, 'n_estimators': 11{c )-}
+------------------------------------------------------
+The best estimator is:
+GradientBoostingRegressor(learning_rate=0.2, n_estimators=11, random_state=10)
+------------------------------------------------------
+The best index is:
+110
+------------------------------------------------------
+[0.56696822 0.31548304 0.19785416 0.34588801 0.31728566 0.37801685
+ 0.30089014]
+{err}/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pandas/io/stata.py:2346: InvalidColumnName: 
+Not all pandas column names were valid Stata variable names.
+The following replacements have been made:
+
+    0   ->   _0
+
+If this is not what you expect, please make sure you have Stata-compliant
+column names in your DataFrame (strings only, max 32 characters, only
+alphanumerics and underscores, no Stata reserved words)
+
+  warnings.warn(ws, InvalidColumnName)
+{txt}(note: file in_pred.dta not found)
+file in_pred.dta saved
+{res}{txt}file out_pred.dta saved
+{res}{txt}(note: file graph_cv.gph not found)
+{res}{txt}(file graph_cv.gph saved)
+
+{com}. 
+. 
+. ereturn list
+
+{txt}scalars:
+  e(OPT_LEARNING_RATE) =  {res}.2
+   {txt}e(OPT_N_ESTIMATORS) =  {res}11
+      {txt}e(TEST_ACCURACY) =  {res}.5281271990589936
+     {txt}e(TRAIN_ACCURACY) =  {res}.9332865075285088
+         {txt}e(BEST_INDEX) =  {res}110
+   {txt}e(SE_TEST_ACCURACY) =  {res}.1400639975073162
+
+{com}. use in_pred, clear
+
+. gen id=_n
+
+. sort id
+
+. tw(line $y id, lc(green)) (line in_pred id, lc(orange)), xtitle("Units' Identifier") legend(order(1 "Actual" 2 "In-sample prediction")) note(LEARNER: $learner) plotregion(style(none)) scheme(s1mono)
+{res}
+{com}. use out_pred, clear
+
+. merge 1:1 index using "test_y"
+{res}{txt}{p 0 7 2}
+(note: variable
+index was 
+long, now double to accommodate using data's values)
+{p_end}
+
+{col 5}Result{col 38}# of obs.
+{col 5}{hline 41}
+{col 5}not matched{col 30}{res}               0
+{txt}{col 5}matched{col 30}{res}               7{txt}  (_merge==3)
+{col 5}{hline 41}
+
+{com}. tw(line $y index, lc(green)) (line out_sample_pred index, lc(orange)), xtitle("Units' Identifier") legend(order(1 "Actual" 2 "Out-sample prediction")) note(LEARNER: $learner) plotregion(style(none)) scheme(s1mono)
+{res}
+{com}. use CV, clear
+
+. list in 1/10, table
+{txt}
+     {c TLC}{hline 7}{c -}{hline 11}{c -}{hline 11}{c -}{hline 11}{c TRC}
+     {c |} {res}index   mean_tr~e   mean_te~e   std_tes~e {txt}{c |}
+     {c LT}{hline 7}{c -}{hline 11}{c -}{hline 11}{c -}{hline 11}{c RT}
+  1. {c |} {res}    0   .00176695   .00104871   .00051897 {txt}{c |}
+  2. {c |} {res}    1   .00353037   .00209752   .00103806 {txt}{c |}
+  3. {c |} {res}    2   .00529027   .00314113   .00155428 {txt}{c |}
+  4. {c |} {res}    3   .00704665   .00418487   .00207065 {txt}{c |}
+  5. {c |} {res}    4   .00879952   .00522341   .00258414 {txt}{c |}
+     {c LT}{hline 7}{c -}{hline 11}{c -}{hline 11}{c -}{hline 11}{c RT}
+  6. {c |} {res}    5   .01054889   .00626209    .0030978 {txt}{c |}
+  7. {c |} {res}    6   .01229216   .00728389   .00358986 {txt}{c |}
+  8. {c |} {res}    7   .01403852   .00831288   .00410187 {txt}{c |}
+  9. {c |} {res}    8   .01577743    .0093414   .00461001 {txt}{c |}
+ 10. {c |} {res}    9   .01751499   .01035377   .00510086 {txt}{c |}
+     {c BLC}{hline 7}{c -}{hline 11}{c -}{hline 11}{c -}{hline 11}{c BRC}
+
+{com}. use out_pred , clear
+
+. list, table
+{txt}
+     {c TLC}{hline 7}{c -}{hline 11}{c TRC}
+     {c |} {res}index   out_sam~d {txt}{c |}
+     {c LT}{hline 7}{c -}{hline 11}{c RT}
+  1. {c |} {res}    0   .56696822 {txt}{c |}
+  2. {c |} {res}    1   .31548304 {txt}{c |}
+  3. {c |} {res}    2   .19785416 {txt}{c |}
+  4. {c |} {res}    3   .34588801 {txt}{c |}
+  5. {c |} {res}    4   .31728566 {txt}{c |}
+     {c LT}{hline 7}{c -}{hline 11}{c RT}
+  6. {c |} {res}    5   .37801685 {txt}{c |}
+  7. {c |} {res}    6   .30089014 {txt}{c |}
+     {c BLC}{hline 7}{c -}{hline 11}{c BRC}
+
+{com}. 
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/Users/zhou/Desktop/ml_boost_web.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}28 May 2021, 01:38:00
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

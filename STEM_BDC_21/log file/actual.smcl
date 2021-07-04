@@ -1,0 +1,30 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/zhou/Desktop/BDC21/dataset/actual.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}26 May 2021, 02:47:14
+
+{com}. list daily_0 in 145/151
+{txt}
+     {c TLC}{hline 11}{c TRC}
+     {c |} {res}  daily_0 {txt}{c |}
+     {c LT}{hline 11}{c RT}
+145. {c |} {res}.58029807 {txt}{c |}
+146. {c |} {res}.47418791 {txt}{c |}
+147. {c |} {res}.24403456 {txt}{c |}
+148. {c |} {res}.47782029 {txt}{c |}
+149. {c |} {res}.53782621 {txt}{c |}
+     {c LT}{hline 11}{c RT}
+150. {c |} {res}.53458529 {txt}{c |}
+151. {c |} {res}.42125088 {txt}{c |}
+     {c BLC}{hline 11}{c BRC}
+
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/Users/zhou/Desktop/BDC21/dataset/actual.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}26 May 2021, 02:47:29
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

@@ -1,0 +1,20 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/zhou/Desktop/STEM_BDC_21/log file/RMSE comparison/RMSE_boost_web.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}28 May 2021, 01:57:42
+
+{com}. *RMSE=
+
+.  di ((.7505292 +.1325422 )/151)^0.5
+{res}.07647323
+
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/Users/zhou/Desktop/STEM_BDC_21/log file/RMSE comparison/RMSE_boost_web.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}28 May 2021, 01:58:58
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

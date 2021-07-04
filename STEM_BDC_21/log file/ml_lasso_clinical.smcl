@@ -1,0 +1,57 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/zhou/Desktop/BDC21/log file/ml_lasso_clinical.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}26 May 2021, 12:33:05
+
+{com}. dsregress daily_0 daily_1-daily_7
+{res}
+{txt}Double-selection linear model{col 39}Number of obs{col 67}={col 69}{res}       144
+{col 39}{txt}Number of controls{col 67}={col 69}{res}         0
+{col 39}{txt}Number of selected controls{col 67}={col 69}{res}         0
+{col 39}{txt}Wald chi2({res:7}){col 67}={col 69}{res}   1043.33
+{col 39}{txt}Prob > chi2{col 67}={col 69}{res}    0.0000
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}     daily_0{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}daily_1 {c |}{col 14}{res}{space 2} .4827461{col 26}{space 2} .1018527{col 37}{space 1}    4.74{col 46}{space 3}0.000{col 54}{space 4} .2831186{col 67}{space 3} .6823737
+{txt}{space 5}daily_2 {c |}{col 14}{res}{space 2}-.2300811{col 26}{space 2} .0929724{col 37}{space 1}   -2.47{col 46}{space 3}0.013{col 54}{space 4}-.4123037{col 67}{space 3}-.0478584
+{txt}{space 5}daily_3 {c |}{col 14}{res}{space 2} .0741115{col 26}{space 2} .0987387{col 37}{space 1}    0.75{col 46}{space 3}0.453{col 54}{space 4}-.1194128{col 67}{space 3} .2676357
+{txt}{space 5}daily_4 {c |}{col 14}{res}{space 2}-.0176223{col 26}{space 2} .1001996{col 37}{space 1}   -0.18{col 46}{space 3}0.860{col 54}{space 4}-.2140099{col 67}{space 3} .1787653
+{txt}{space 5}daily_5 {c |}{col 14}{res}{space 2}-.0629116{col 26}{space 2} .1079702{col 37}{space 1}   -0.58{col 46}{space 3}0.560{col 54}{space 4}-.2745293{col 67}{space 3} .1487061
+{txt}{space 5}daily_6 {c |}{col 14}{res}{space 2} .1763579{col 26}{space 2}  .094144{col 37}{space 1}    1.87{col 46}{space 3}0.061{col 54}{space 4} -.008161{col 67}{space 3} .3608768
+{txt}{space 5}daily_7 {c |}{col 14}{res}{space 2} .5194194{col 26}{space 2} .0913753{col 37}{space 1}    5.68{col 46}{space 3}0.000{col 54}{space 4} .3403272{col 67}{space 3} .6985116
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 2 78}
+Note: Chi-squared test is a Wald test of the coefficients of the variables of interest jointly equal to zero. Lassos {help j_lasso_inferential:select controls} for model estimation. Type {stata lassoinfo} to see number of selected variables in each lasso.
+{p_end}
+
+{com}. predict daily_lasso
+{txt}(option {bf:xb} assumed); partial linear prediction
+
+{com}. list daily_lasso in 145/151
+{txt}
+     {c TLC}{hline 10}{c TRC}
+     {c |} {res}daily_~o {txt}{c |}
+     {c LT}{hline 10}{c RT}
+145. {c |} {res}.4319468 {txt}{c |}
+146. {c |} {res}.3345546 {txt}{c |}
+147. {c |} {res}.2079464 {txt}{c |}
+148. {c |} {res}.2168641 {txt}{c |}
+149. {c |} {res}.4076946 {txt}{c |}
+     {c LT}{hline 10}{c RT}
+150. {c |} {res}.3819385 {txt}{c |}
+151. {c |} {res}.4811112 {txt}{c |}
+     {c BLC}{hline 10}{c BRC}
+
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/Users/zhou/Desktop/BDC21/log file/ml_lasso_clinical.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}26 May 2021, 12:33:10
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
