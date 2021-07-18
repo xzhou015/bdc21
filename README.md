@@ -1,7 +1,7 @@
 # bdc21
 Data &amp; Do-files avaiable for replication.
 
-This file corresponds with paper written in STEM Fellowship Big Data Challenge 2021.
+This file corresponds with paper Zhou & Li
 
 All data is open-access and collected from Google API.
 
