@@ -1,7 +1,7 @@
 # bdc21
 Data &amp; Do-files avaiable for replication.
 
-This file corresponds with paper Zhou & Li
+This file corresponds with paper in unBDC2021
 
 All data is open-access and collected from Google API.
 
